@@ -1,0 +1,11 @@
+<h1>Available Equipment</h1>
+<ul>
+    {% for item in equipment %}
+    <li>
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.description }}</p>
+        <p>Price: ${{ item.rental_price }} per day</p>
+        <a href="{% url 'equipment_detail' item.id %}">View Details</a>
+    </li>
+    {% endfor %}
+</ul>

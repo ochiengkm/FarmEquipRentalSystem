@@ -1,0 +1,11 @@
+<h1>Book {{ equipment.name }}</h1>
+<form method="POST">
+    {% csrf_token %}
+    <label for="start_date">Start Date:</label>
+    <input type="date" name="start_date" required>
+
+    <label for="end_date">End Date:</label>
+    <input type="date" name="end_date" required>
+
+    <button type="submit">Book Now</button>
+</form>
