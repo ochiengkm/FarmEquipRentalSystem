@@ -36,8 +36,8 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
-    # path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    # path('', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('', equipment_views.home, name='home'),
     path('admin/', admin.site.urls),
     path('equipment/', equipment_views.equipment_list, name='equipment_list'),
