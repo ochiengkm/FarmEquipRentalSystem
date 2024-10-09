@@ -1,0 +1,2 @@
+[2024.05.06 01.08.42 PM] => method: POST uri: /api/v1/auth/login/ queryString:  protocol: http remoteAddr: 127.0.0.1 remotePort: None userAgent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36
+[2024.05.06 01.10.17 PM] => method: POST uri: /api/v1/auth/login/ queryString:  protocol: http remoteAddr: 127.0.0.1 remotePort: None userAgent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36
