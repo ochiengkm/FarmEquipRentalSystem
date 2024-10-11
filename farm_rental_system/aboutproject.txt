@@ -1,0 +1,50 @@
+# FarmEquipRentalSystem
+
+[//]: # (1. Table of Contents)
+1.Project Overview
+2.Prerequisites
+3.Setting Up the Development Environment
+4.Creating the Django Project
+5.Designing the Database Models
+6.Implementing User Authentication and Roles
+7.Building Equipment Listings
+8.Developing the Booking System
+9.Integrating Payment Processing
+10.Adding Reviews and Ratings
+11.Setting Up Notifications
+12.Creating the Admin Dashboard
+13.Front-End Development
+14.Testing
+15.Deployment
+
+[//]: # (2. Project Overview)
+The Farm Equipment Rental System will allow:
+
+A). Farmers (Owners): List their equipment for rent, set prices, and manage availability.
+B). Renters: Browse available equipment, filter by location/type, and book equipment.
+C). Admin: Manage users, oversee transactions, handle disputes, and generate reports.
+
+Key Features:
+- User Registration and Authentication
+- Role-Based Access Control
+- Equipment Management
+- Search and Filtering
+- Booking and Reservation System
+- Payment Integration
+- Reviews and Ratings
+- Notifications (Email/SMS)
+- Admin Dashboard
+
+
+[//]: # (3. Prerequisites)
+Python
+Django Framework
+HTML, CSS, JavaScript
+SQL (for database management)
+
+Tools Installed:
+Python (3.8+)
+pip (Python package manager)
+Virtualenv (for creating virtual environments)
+Git (for version control)
+Node.js and npm (for frontend frameworks)
