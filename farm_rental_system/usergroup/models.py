@@ -13,5 +13,5 @@ class UserGroup(models.Model):
     def _str_(self):
         return self.name
 
-        class Meta:
-            db_table = 'usergroup'
+    class Meta:
+        db_table = 'usergroup'

@@ -48,7 +48,7 @@ class AuthUSer(viewsets.ModelViewSet):
                     if user.check_password(password):
                         if not user.is_verified:
                             response = ApiResponse()
-                            response.setStatusCode(status.HTTP_401_UNAUTHORIZED)
+                            response.setStatusCode(status.HTTP_403_FORBIDDEN)
                             response.setMessage("Account is not verified")
                             return Response(response.toDict(), status=200)
                     serializer = CustomUserSerializer(user)
@@ -64,19 +64,19 @@ class AuthUSer(viewsets.ModelViewSet):
                     data['roles'] = roles
                     response = ApiResponse()
                     response.setStatusCode(status.HTTP_200_OK)
-                    response.setMessage("Check for an OTP on your email")
+                    response.setMessage("OTP sent to mail, please check your email.")
                     response.setEntity(data)
                     return Response(response.toDict(), status=response.status)
                 else:
                     response = ApiResponse()
-                    response.setStatusCode(status.HTTP_400_BAD_REQUEST)
+                    response.setStatusCode(status.HTTP_401_UNAUTHORIZED)
                     response.setMessage("Incorrect login credentials")
                     return Response(response.toDict(), status=200)
             except CustomUser.DoesNotExist:
 
                 response = ApiResponse()
-                response.setStatusCode(status.HTTP_400_BAD_REQUEST)
-                response.setMessage("Incorrect login credentials")
+                response.setStatusCode(status.HTTP_404_NOT_FOUND)
+                response.setMessage("Incorrect Password or Email")
                 return Response(response.toDict(), status=200)
         else:
             response = ApiResponse()
@@ -85,7 +85,7 @@ class AuthUSer(viewsets.ModelViewSet):
             return Response(response.toDict(), status=response.status)
 
     @action(detail=False, methods=['POST'])
-    def sendOTP(self, request):
+    def sendUserdOTP(self, request):
         response = ApiResponse()
         helpers = Helpers()
         helpers.log(request)
@@ -110,7 +110,7 @@ class AuthUSer(viewsets.ModelViewSet):
                                 return Response(response.toDict(), 200)
                             else:
                                 response.setMessage("Failed to send Email")
-                                response.setStatusCode(401)
+                                response.setStatusCode(500)
                                 return Response(response.toDict(), 200)
 
                         print("Sent OTP: ", otp)
@@ -119,7 +119,7 @@ class AuthUSer(viewsets.ModelViewSet):
                         return Response(response.toDict(), 200)
                     except Exception as e:
                         response.setMessage(f"Error sending email: {str(e)}")
-                        response.setStatusCode(401)
+                        response.setStatusCode(500)
                         return Response(response.toDict(), 200)
                 except CustomUser.DoesNotExist:
                     response.setMessage("No record found with this Email")
@@ -132,7 +132,7 @@ class AuthUSer(viewsets.ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=['POST'])
-    def verifyOTP(self, request):
+    def verifyUserOTP(self, request):
         response = ApiResponse()
         helpers = Helpers()
         helpers.log(request)
@@ -192,7 +192,7 @@ class AuthUSer(viewsets.ModelViewSet):
         return token
 
     @action(detail=False, methods=['POST'])
-    def resetpassword(self, request):
+    def resetUserpassword(self, request):
         response = ApiResponse()
         helpers = Helpers()
         helpers.log(request)
