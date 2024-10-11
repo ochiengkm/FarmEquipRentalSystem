@@ -20,7 +20,7 @@ class BookingsView(viewsets.ModelViewSet):
     queryset = Bookings.objects.all()
     serializer_class = BookingsSerializer
 
-    def booking_list(self, request, *args, **kwargs):
+    def reservation_list(self, request, *args, **kwargs):
         response = ApiResponse()
         data = Bookings.objects.all()
 
@@ -55,7 +55,7 @@ class BookingsView(viewsets.ModelViewSet):
         # Check if the equipment is available for reservation
         if equipment.status != 'available':
             return Response({'error': 'Equipment is not available for reservation.'},
-                            status=status.HTTP_400_BAD_REQUEST)
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         # Check if a reservation with the same renter and equipment already exists
         if Bookings.objects.filter(renters=renter, equipment=equipment).exists():

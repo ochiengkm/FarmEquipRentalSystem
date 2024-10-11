@@ -16,7 +16,7 @@ class EquipmentView(viewsets.ModelViewSet):
     serializer_class = EquipmentSerializer
 
     # permission_classes = [IsAuthenticated]  # Restrict access to authenticated users
-    def list(self, request, *args, **kwargs):
+    def list_equipment(self, request, *args, **kwargs):
         response = ApiResponse()
         data = list(Equipment.objects.all().values())
         response.setStatusCode(status.HTTP_200_OK)
@@ -24,7 +24,7 @@ class EquipmentView(viewsets.ModelViewSet):
         response.setEntity(data)
         return Response(response.toDict(), status=response.status)
 
-    def create(self, request):
+    def create_equipment(self, request):
         """Create new equipment."""
         serializer = EquipmentSerializer(data=request.data)
         if serializer.is_valid():
@@ -33,7 +33,7 @@ class EquipmentView(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def retrieve(self, request, pk=None):
+    def retrieve_equipment(self, request, pk=None):
         """Get details of a specific piece of equipment."""
         try:
             equipment = Equipment.objects.get(pk=pk)
@@ -42,7 +42,7 @@ class EquipmentView(viewsets.ModelViewSet):
         except Equipment.DoesNotExist:
             return Response({"error": "Equipment not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    def update(self, request, pk=None):
+    def update_equipment(self, request, pk=None):
         """Update equipment details."""
         try:
             equipment = Equipment.objects.get(pk=pk)
@@ -55,7 +55,7 @@ class EquipmentView(viewsets.ModelViewSet):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def destroy(self, request, pk=None):
+    def destroy_equipment(self, request, pk=None):
         """Delete a specific piece of equipment."""
         try:
             equipment = Equipment.objects.get(pk=pk)

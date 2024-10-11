@@ -110,17 +110,17 @@ class CustomUserView(viewsets.ModelViewSet):
         response.setEntity(userData.data)  # Use userData.data instead of request.data
         return Response(response.toDict(), status=status.HTTP_201_CREATED)
 
-    def destroy(self, request, *args, **kwargs):
+    def destroy_user(self, request, *args, **kwargs):
         userData = CustomUser.objects.filter(id=kwargs['pk'])
         if userData:
             userData.delete()
             status_code = status.HTTP_200_OK
             return Response({"message": "CustomUser deleted Successfully", "status": status_code})
         else:
-            status_code = status.HTTP_400_BAD_REQUEST
+            status_code = status.HTTP_404_NOT_FOUND
             return Response({"message": "CustomUser data not found", "status": status_code})
 
-    def update(self, request, *args, **kwargs):
+    def update_user(self, request, *args, **kwargs):
         customuser_details = self.get_object()  # Get the object to be updated
         customuser_serializer_data = CustomUserSerializer(
             customuser_details, data=request.data, partial=True)  # Allow partial updates
@@ -155,9 +155,9 @@ class CustomUserView(viewsets.ModelViewSet):
         if user_data.exists():
             # Fetch additional related data using annotations
             user_data = user_data.annotate(
-                school_name=F('schools__name'),
+                sacco_name=F('sacco__name'),
                 usergroup_name=F('usergroup__name')
-            ).values('id', 'username', 'email', 'school_name', 'usergroup_name', 'date_joined', 'last_login',
+            ).values('id', 'username', 'email', 'sacco_name', 'usergroup_name', 'date_joined', 'last_login',
                      'is_superuser', 'is_staff',
                      'is_active', 'password', 'first_name', 'last_name', 'gender', 'nationality', 'address',
                      'middle_name')
@@ -212,7 +212,7 @@ class CustomUserView(viewsets.ModelViewSet):
 class PermissionsView(viewsets.ModelViewSet):
     serializer_class = PermissionsSerializer
 
-    def list(self, request, *args, **kwargs):
+    def list_users(self, request, *args, **kwargs):
         permissions = Permission.objects.all()
         p = []
         for perm in permissions:
@@ -230,7 +230,7 @@ class PermissionsView(viewsets.ModelViewSet):
         response.setEntity(p)
         return Response(response.toDict(), status=response.status)
 
-    def create(self, request, *args, **kwargs):
+    def create_user(self, request, *args, **kwargs):
         response = ApiResponse()
         permissionsData = PermissionsSerializer(data=request.data)
 
@@ -243,7 +243,7 @@ class PermissionsView(viewsets.ModelViewSet):
         existing_permission = Permission.objects.filter(name=name).first()
 
         if existing_permission:
-            status_code = status.HTTP_400_BAD_REQUEST
+            status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
             return Response({"message": "Name is already in use.", "status": status_code}, status_code)
 
         # If name is not in use, save the new permission

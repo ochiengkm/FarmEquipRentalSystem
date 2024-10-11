@@ -14,7 +14,7 @@ class RentersSerializer(serializers.ModelSerializer):
         helpers = Helpers()  # Instantiate the Helpers class
 
         # Extract the phone number to use as the password
-        phone_number = validated_data.get('phone_number',)
+        phone_number = validated_data.get('phone_number', )
         if not phone_number:
             raise serializers.ValidationError("Phone number is required to create a user.")
 
